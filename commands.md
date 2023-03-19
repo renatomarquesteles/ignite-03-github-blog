@@ -19,3 +19,15 @@ Installs simple-import-sort plugin to configure imports sorting
 `npx eslint src --ext .tsx,.ts --fix` or
 `npm run lint:fix`
 Fixes linting problems
+
+`npm i react-icons`
+Installs react-icons which is a icon library for React
+
+`npm i react-router-dom`
+Installs react-router-dom to handle navigation
+
+`npm i axios`
+Installs axios to handle HTTP requests
+
+`npm i dayjs`
+Installs dayjs to format Dates
