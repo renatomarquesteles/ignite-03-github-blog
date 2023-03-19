@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import * as dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { Link } from 'react-router-dom';
 
 import { api } from '../../../../lib/axios';
 
@@ -43,13 +44,15 @@ export const PostsList = () => {
   return (
     <Container>
       {posts.map((post) => (
-        <PostContainer key={post.id}>
-          <Title>
-            <h1>{post.title}</h1>
-            <span>{dayjs(post.createdAt).fromNow()}</span>
-          </Title>
-          <p>{post.body}</p>
-        </PostContainer>
+        <Link key={post.id} to={`/posts/${post.id}`}>
+          <PostContainer>
+            <Title>
+              <h1>{post.title}</h1>
+              <span>{dayjs(post.createdAt).fromNow()}</span>
+            </Title>
+            <p>{post.body}</p>
+          </PostContainer>
+        </Link>
       ))}
     </Container>
   );

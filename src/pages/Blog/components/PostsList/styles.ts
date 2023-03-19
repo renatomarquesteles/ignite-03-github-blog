@@ -6,6 +6,11 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 
+  a {
+    display: flex;
+    text-decoration: none;
+  }
+
   @media (max-width: 54rem) {
     grid-template-columns: 1fr;
   }
@@ -15,6 +20,7 @@ export const PostContainer = styled.div`
   padding: 2rem;
   background: ${(props) => props.theme['base-post']};
   border-radius: 10px;
+  border: 2px solid transparent;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -22,6 +28,10 @@ export const PostContainer = styled.div`
   p {
     color: ${(props) => props.theme['base-text']};
     line-height: 160%;
+  }
+
+  &:hover {
+    border-color: ${(props) => props.theme['base-label']};
   }
 `;
 
