@@ -8,6 +8,7 @@ import {
   FaExternalLinkAlt,
   FaGithub,
 } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 
 import { HeaderCard } from '../../components/HeaderCard';
@@ -79,6 +80,10 @@ export const Post = () => {
           </span>
         </Tags>
       </HeaderCard>
+
+      <main>
+        <ReactMarkdown className="line-break">{post.body}</ReactMarkdown>
+      </main>
     </Container>
   );
 };

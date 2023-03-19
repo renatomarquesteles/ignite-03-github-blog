@@ -17,6 +17,7 @@ export const Container = styled.div`
 `;
 
 export const PostContainer = styled.div`
+  max-height: 25rem;
   padding: 2rem;
   background: ${(props) => props.theme['base-post']};
   border-radius: 10px;
@@ -28,6 +29,11 @@ export const PostContainer = styled.div`
   p {
     color: ${(props) => props.theme['base-text']};
     line-height: 160%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
   }
 
   &:hover {
