@@ -10,9 +10,10 @@ import { Container, PostContainer, Title } from './styles';
 
 interface Post {
   id: number;
+  number: number;
   title: string;
   body: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 dayjs.extend(relativeTime);
@@ -28,6 +29,7 @@ export const PostsList = () => {
     const formattedPosts = data.map((post: any) => {
       return {
         id: post.id,
+        number: post.number,
         title: post.title,
         body: post.body,
         createdAt: new Date(post.created_at),
@@ -44,7 +46,7 @@ export const PostsList = () => {
   return (
     <Container>
       {posts.map((post) => (
-        <Link key={post.id} to={`/posts/${post.id}`}>
+        <Link key={post.id} to={`/posts/${post.number}`}>
           <PostContainer>
             <Title>
               <h1>{post.title}</h1>
