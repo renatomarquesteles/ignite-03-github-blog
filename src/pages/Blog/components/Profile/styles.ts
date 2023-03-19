@@ -33,9 +33,14 @@ export const Content = styled.div`
       font-size: 0.75rem;
       font-weight: 700;
       text-decoration: none;
+      border-bottom: 1px solid transparent;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+
+      &:hover {
+        border-color: ${(props) => props.theme.blue};
+      }
     }
   }
 `;

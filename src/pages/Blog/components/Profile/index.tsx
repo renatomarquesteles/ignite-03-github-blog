@@ -1,41 +1,77 @@
+import { useEffect, useState } from 'react';
+
 import {
   FaBuilding,
   FaExternalLinkAlt,
   FaGithub,
   FaUserFriends,
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import { HeaderCard } from '../../../../components/HeaderCard';
+import { api } from '../../../../lib/axios';
 
 import { Bio, Content, ImageWrapper, Tags } from './styles';
 
+interface User {
+  avatarUrl: string;
+  name: string;
+  htmlUrl: string;
+  bio?: string;
+  login: string;
+  company?: string;
+  followers: number;
+}
+
 export const Profile = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  const fetchProfile = async () => {
+    const { data } = await api.get('/users/renatomarquesteles');
+
+    setUser({
+      avatarUrl: data.avatar_url,
+      name: data.name,
+      htmlUrl: data.html_url,
+      bio: data.bio,
+      login: data.login,
+      company: data.company,
+      followers: data.followers,
+    });
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  if (!user) return;
+
   return (
     <HeaderCard>
       <ImageWrapper>
-        <img src="https://github.com/renatomarquesteles.png" alt="" />
+        <img src={user.avatarUrl} alt="" />
+
         <Content>
           <header>
-            <h1>Renato Marques Teles</h1>
-            <a href="#">
+            <h1>{user.name}</h1>
+            <Link to={user.htmlUrl} target="_blank" rel="noreferrer">
               GITHUB <FaExternalLinkAlt size={12} />
-            </a>
+            </Link>
           </header>
-          <Bio>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-            aliquam autem consequatur fugit omnis repellat, debitis sit
-            asperiores voluptate velit qui, deleniti, provident ad itaque. Quod
-            saepe suscipit delectus blanditiis!
-          </Bio>
+
+          <Bio>{user.bio} </Bio>
+
           <Tags>
             <span>
-              <FaGithub size={18} /> renatomarxs
+              <FaGithub size={18} /> {user.login}
             </span>
+            {user.company && (
+              <span>
+                <FaBuilding size={18} /> {user.company}
+              </span>
+            )}
             <span>
-              <FaBuilding size={18} /> Rocketseat
-            </span>
-            <span>
-              <FaUserFriends size={18} /> 32 followers
+              <FaUserFriends size={18} /> {user.followers} followers
             </span>
           </Tags>
         </Content>
