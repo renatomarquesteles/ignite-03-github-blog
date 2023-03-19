@@ -1,4 +1,5 @@
 import { Header } from '../../components/Header';
+import { PostsList } from './components/PostsList';
 import { Profile } from './components/Profile';
 import { SearchForm } from './components/SearchForm';
 
@@ -11,6 +12,7 @@ export const Blog = () => {
       <Content>
         <Profile />
         <SearchForm />
+        <PostsList />
       </Content>
     </>
   );
