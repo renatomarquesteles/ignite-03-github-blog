@@ -6,7 +6,7 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 
-  @media (max-width: 864px) {
+  @media (max-width: 54rem) {
     grid-template-columns: 1fr;
   }
 `;

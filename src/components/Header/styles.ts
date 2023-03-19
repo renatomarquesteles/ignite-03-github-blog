@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  max-width: 1440px;
+  max-width: 90rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -26,12 +26,12 @@ export const Logo = styled.img`
 `;
 
 export const CenterLightningEffect = styled.div`
-  width: 1024px;
-  height: 52px;
+  width: 64rem;
+  height: 3.25rem;
   background: #14589c;
-  filter: blur(106px);
+  filter: blur(6.625rem);
   position: absolute;
-  bottom: 22px;
+  bottom: 1.375rem;
   left: 50%;
   transform: translateX(-50%);
 `;
