@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import useDebounce from '../../hooks/useDebounce';
 import { api } from '../../lib/axios';
 import { PostsList } from './components/PostsList';
 import { Profile } from './components/Profile';
@@ -15,16 +16,25 @@ interface Post {
   createdAt: Date;
 }
 
+const GITHUB_USER = 'renatomarquesteles';
+const REPOSITORY = 'ignite-03-github-blog';
+
 export const Blog = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [searchText, setSearchText] = useState('');
 
-  const fetchPosts = async () => {
-    const { data } = await api.get(
-      '/repos/renatomarquesteles/ignite-03-github-blog/issues'
-    );
+  const debouncedSearch = useDebounce(searchText, 500);
 
-    const formattedPosts = data.map((post: any) => {
+  const fetchPosts = async (query: string) => {
+    const {
+      data: { items },
+    } = await api.get('/search/issues', {
+      params: {
+        q: `repo:${GITHUB_USER}/${REPOSITORY} is:issue ${query}`,
+      },
+    });
+
+    const formattedPosts = items.map((post: any) => {
       return {
         id: post.id,
         number: post.number,
@@ -38,29 +48,18 @@ export const Blog = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    fetchPosts(debouncedSearch);
+  }, [debouncedSearch]);
 
-  const filterPosts = useCallback(
-    (query: string) => {
-      const formattedQuery = query.toLowerCase();
-
-      setFilteredPosts(
-        posts.filter((post) => {
-          const formattedTitle = post.title.toLowerCase();
-
-          return formattedTitle.includes(formattedQuery);
-        })
-      );
-    },
-    [posts]
-  );
+  const changeSearchText = (text: string) => {
+    setSearchText(text);
+  };
 
   return (
     <Content>
       <Profile />
-      <SearchForm filterPosts={filterPosts} />
-      <PostsList posts={filteredPosts} />
+      <SearchForm changeSearchText={changeSearchText} searchText={searchText} />
+      <PostsList posts={posts} />
     </Content>
   );
 };
