@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import dayjs from 'dayjs';
+import { formatDistanceToNow } from 'date-fns';
 import {
   FaCalendarDay,
   FaChevronLeft,
@@ -72,7 +72,7 @@ export const Post = () => {
           </span>
           <span>
             <FaCalendarDay size={18} />
-            {dayjs(post.createdAt).fromNow()}
+            {formatDistanceToNow(post.createdAt, { addSuffix: true })}
           </span>
           <span>
             <FaComment size={18} />

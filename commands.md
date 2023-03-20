@@ -29,5 +29,5 @@ Installs react-router-dom to handle navigation
 `npm i axios`
 Installs axios to handle HTTP requests
 
-`npm i dayjs`
-Installs dayjs to format Dates
+`npm i date-fns`
+Installs date-fns to format Dates

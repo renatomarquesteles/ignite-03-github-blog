@@ -1,5 +1,4 @@
-import * as dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import { formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 import { Container, PostContainer, Title } from './styles';
@@ -16,8 +15,6 @@ interface PostsListProps {
   posts: Post[];
 }
 
-dayjs.extend(relativeTime);
-
 export const PostsList = ({ posts }: PostsListProps) => {
   return (
     <Container>
@@ -26,7 +23,9 @@ export const PostsList = ({ posts }: PostsListProps) => {
           <PostContainer>
             <Title>
               <h1>{post.title}</h1>
-              <span>{dayjs(post.createdAt).fromNow()}</span>
+              <span>
+                {formatDistanceToNow(post.createdAt, { addSuffix: true })}
+              </span>
             </Title>
             <p>{post.body}</p>
           </PostContainer>
