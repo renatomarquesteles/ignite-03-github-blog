@@ -9,6 +9,11 @@ export const ImageWrapper = styled.div`
     height: 148px;
     border-radius: 8px;
   }
+
+  @media (max-width: 54rem) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Content = styled.div`
@@ -53,6 +58,7 @@ export const Bio = styled.p`
 export const Tags = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1.5rem;
 
   span {

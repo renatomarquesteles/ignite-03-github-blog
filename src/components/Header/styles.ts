@@ -19,6 +19,14 @@ export const Content = styled.div`
   img {
     padding: 1.875rem 0;
   }
+
+  @media (max-width: 60rem) {
+    justify-content: center;
+
+    img:nth-child(odd) {
+      display: none;
+    }
+  }
 `;
 
 export const Logo = styled.img`

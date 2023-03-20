@@ -8,6 +8,10 @@ export const Container = styled.div`
       white-space: pre-wrap;
     }
   }
+
+  @media (max-width: 54rem) {
+    padding: 0 2rem;
+  }
 `;
 
 export const Options = styled.div`
@@ -43,7 +47,8 @@ export const Title = styled.div`
 export const Tags = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
 
   span {
     color: ${(props) => props.theme['base-span']};
