@@ -1,6 +1,18 @@
+import { useEffect, useState } from 'react';
+
 import { Container, PostsCountWrapper } from './styles';
 
-export const SearchForm = () => {
+interface SearchFormProps {
+  filterPosts: (query: string) => void;
+}
+
+const SearchFormComponent = ({ filterPosts }: SearchFormProps) => {
+  const [searchText, setSearchText] = useState('');
+
+  useEffect(() => {
+    filterPosts(searchText);
+  }, [filterPosts, searchText]);
+
   return (
     <Container>
       <PostsCountWrapper>
@@ -8,7 +20,14 @@ export const SearchForm = () => {
         <span>6 posts</span>
       </PostsCountWrapper>
 
-      <input type="text" placeholder="Search content" />
+      <input
+        type="text"
+        placeholder="Search content"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
     </Container>
   );
 };
+
+export const SearchForm = SearchFormComponent;

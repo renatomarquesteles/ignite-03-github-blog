@@ -48,7 +48,7 @@ export const Post = () => {
     fetchPost();
   }, [fetchPost]);
 
-  if (!post) return;
+  if (!post) return null;
 
   return (
     <Container>

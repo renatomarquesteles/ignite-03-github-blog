@@ -44,7 +44,7 @@ export const Profile = () => {
     fetchProfile();
   }, []);
 
-  if (!user) return;
+  if (!user) return null;
 
   return (
     <HeaderCard>

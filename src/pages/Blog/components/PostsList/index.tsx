@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react';
-
 import * as dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Link } from 'react-router-dom';
-
-import { api } from '../../../../lib/axios';
 
 import { Container, PostContainer, Title } from './styles';
 
@@ -16,33 +12,13 @@ interface Post {
   createdAt: Date;
 }
 
+interface PostsListProps {
+  posts: Post[];
+}
+
 dayjs.extend(relativeTime);
 
-export const PostsList = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  const fetchPosts = async () => {
-    const { data } = await api.get(
-      '/repos/renatomarquesteles/ignite-03-github-blog/issues'
-    );
-
-    const formattedPosts = data.map((post: any) => {
-      return {
-        id: post.id,
-        number: post.number,
-        title: post.title,
-        body: post.body,
-        createdAt: new Date(post.created_at),
-      };
-    });
-
-    setPosts(formattedPosts);
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
+export const PostsList = ({ posts }: PostsListProps) => {
   return (
     <Container>
       {posts.map((post) => (
