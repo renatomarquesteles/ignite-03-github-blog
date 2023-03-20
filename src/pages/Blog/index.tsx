@@ -25,30 +25,39 @@ export const Blog = () => {
 
   const debouncedSearch = useDebounce(searchText, 500);
 
-  const fetchPosts = async (query: string) => {
-    const {
-      data: { items },
-    } = await api.get('/search/issues', {
-      params: {
-        q: `repo:${GITHUB_USER}/${REPOSITORY} is:issue ${query}`,
-      },
-    });
+  const fetchPosts = async (query: string, signal: AbortSignal) => {
+    try {
+      const { data } = await api.get('/search/issues', {
+        params: {
+          q: `repo:${GITHUB_USER}/${REPOSITORY} is:issue ${query}`,
+        },
+        signal,
+      });
 
-    const formattedPosts = items.map((post: any) => {
-      return {
-        id: post.id,
-        number: post.number,
-        title: post.title,
-        body: post.body,
-        createdAt: new Date(post.created_at),
-      };
-    });
+      const formattedPosts = data.items.map((post: any) => {
+        return {
+          id: post.id,
+          number: post.number,
+          title: post.title,
+          body: post.body,
+          createdAt: new Date(post.created_at),
+        };
+      });
 
-    setPosts(formattedPosts);
+      setPosts(formattedPosts);
+    } catch (error: any) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
-    fetchPosts(debouncedSearch);
+    const controller = new AbortController();
+
+    fetchPosts(debouncedSearch, controller.signal);
+
+    return () => {
+      controller.abort();
+    };
   }, [debouncedSearch]);
 
   const changeSearchText = (text: string) => {
